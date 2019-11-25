@@ -1,3 +1,24 @@
+- 7种语言类型
+  1. Undefined
+  2. Null
+  3. Boolean
+  4. String
+  5. Number
+  6. Object
+  6. Symbol
+
+- 数据属性具有四个特征
+  1. vlaue
+  2. writable
+  3. enumerable
+  4. configurable
+
+- 访问器属性，四个特征。
+  1. getter
+  2. setter
+  3 enumerable
+  4 configurable
+
 - 为什么typeof null // 'object'
 
 
@@ -19,6 +40,9 @@ ToPrimitive([]) == 0 // [].toString() -> '' '' == 0
 [[prototype]] === __proto__
 
 - 实现一个new
+  - 以构造器的 prototype 属性（注意与私有字段 [[prototype]] 的区分）为原型，创建新对象；
+  - 将 this 和调用参数传给构造器，执行；
+  - 如果构造器返回的是对象，则返回，否则返回第一步创建的对象。
 ```
 function create() {
   let obj = Object.create(null)
@@ -27,9 +51,18 @@ function create() {
   let result = constructor.apply(obj, arguments)
   return typeof result === 'object' ? result : obj
 }
+```
+
+- 实现一个Object.create
+```
+Object.create = function(prototype) {
+  var cls = function(){}
+  cls.prototype = prototype;
+  return new cls;
+}
+```
 
 - 实现instanceof
-```
 
 ```
 function instanceof (left, right) {
