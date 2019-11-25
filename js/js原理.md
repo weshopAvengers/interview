@@ -16,8 +16,8 @@
 - 访问器属性，四个特征。
   1. getter
   2. setter
-  3 enumerable
-  4 configurable
+  3. enumerable
+  4. configurable
 
 - 为什么typeof null // 'object'
 
@@ -38,6 +38,11 @@ ToPrimitive([]) == 0 // [].toString() -> '' '' == 0
 函数拥有prototype，对象拥有__proto__
 函数的prototype指向原型，对象的__proto__指向构造函数的原型。
 [[prototype]] === __proto__
+
+- construct执行过程
+  - 以 Object.protoype 为原型创建一个新对象；
+  - 以新对象为 this，执行函数的 [[call]]；
+  - 如果 [[call]] 的返回值是对象，那么，返回这个对象，否则返回第一步创建的新对象。
 
 - 实现一个new
   - 以构造器的 prototype 属性（注意与私有字段 [[prototype]] 的区分）为原型，创建新对象；
