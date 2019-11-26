@@ -106,7 +106,7 @@ function debounce(func, wait) {
     if (last < wait && last >= 0) {
       timeout = setTimeout(later, wait - last)
     } else {
-      timeout = null
+      clearTimeout(timeout)
       result = func.apply(this, args)
     }
   }
@@ -126,7 +126,7 @@ function throttle(func, wait) {
   let args, result, timeout, previous = 0
   const later = () => {
     previous = + new Date()
-    timeout = null
+    clearTimeout(timeout)
     result = func.apply(this, args)
   }
   return () => {
@@ -136,11 +136,8 @@ function throttle(func, wait) {
     args = arguments
     if (remaining <= 0 || remaining > wait) {
       previous = now
+      clearTimeout(timeout)
       result = func.apply(this, args)
-      if(timeout) {
-        clearTimeout(timeout)
-        timeout = null
-      }
     } else if (!timeout) {
       timeout = setTimeout(later, remaining)
     }
